@@ -46,17 +46,13 @@ HTML_TMPL = """
   </head>
 
   <body>
-
     <br/>
-
-    <br/>
-    Hello from
+    Showing server status from:
     <br/>
     {% if not ok0 %}
     <b><code>{{ out0 }}</code></b>
     {% else %}
-    Failed to run {{ cmd0 }}:
-    <b><code>{{ err0 }}</b></code>
+    Failed to run <b><code>{{ cmd0 }}</code></b>.
     {% endif %}
     <br/>
 
@@ -66,8 +62,7 @@ HTML_TMPL = """
     {% if not ok1 %}
     <b><code>{{ out1 }}</code></b>
     {% else %}
-    Failed to run {{ cmd1 }}:
-    <b><code>{{ err1 }}</b></code>
+    Failed to run <b><code>{{ cmd1 }}</code></b>.
     {% endif %}
     <br/>
 
@@ -77,8 +72,7 @@ HTML_TMPL = """
     {% if not ok2 %}
     <b><code>{{ out2 }}</code></b>
     {% else %}
-    Failed to run {{ cmd2 }}:
-    <b><code>{{ err2 }}</b></code>
+    Failed to run <b><code>{{ cmd2 }}</code></b>.
     {% endif %}
     <br/>
 
@@ -88,8 +82,7 @@ HTML_TMPL = """
     {% if not ok3 %}
     <b><code>{{ out3 }}</code></b>
     {% else %}
-    Failed to run {{ cmd3 }}:
-    <b><code>{{ err3 }}</b></code>
+    Failed to run <b><code>{{ cmd3 }}</code></b>.
     {% endif %}
     <br/>
 
@@ -99,8 +92,7 @@ HTML_TMPL = """
     {% if not ok4 %}
     <b><code>{{ out4 }}</code></b>
     {% else %}
-    Failed to run {{ cmd4 }}:
-    <b><code>{{ err4 }}</b></code>
+    Failed to run <b><code>{{ cmd4 }}</code></b>.
     {% endif %}
     <br/>
 
@@ -110,8 +102,7 @@ HTML_TMPL = """
     {% if not ok5 %}
     <b><code>{{ out5 }}</code></b>
     {% else %}
-    Failed to run {{ cmd5 }}:
-    <b><code>{{ err5 }}</b></code>
+    Failed to run <b><code>{{ cmd5 }}</code></b>.
     {% endif %}
     <br/>
 
@@ -127,8 +118,8 @@ def run_cmd(cmd_string):
         ok = p.wait()
         out, err = p.communicate()
     except FileNotFoundError:
-        out = None
-        err = None
+        out = b''
+        err = b''
         ok = True
 
     return ok, out, err
@@ -145,12 +136,12 @@ def main():
     ok5, out5, err5 = run_cmd(CMD[5])
 
     html = tmpl.render(title='WebStats',
-                       ok0=ok0, err0=err0, out0=out0, cmd0=CMD[0],
-                       ok1=ok1, err1=err1, out1=out1, cmd1=CMD[1],
-                       ok2=ok2, err2=err2, out2=out2, cmd2=CMD[2],
-                       ok3=ok3, err3=err3, out3=out3, cmd3=CMD[3],
-                       ok4=ok4, err4=err4, out4=out4, cmd4=CMD[4],
-                       ok5=ok5, err5=err5, out5=out5, cmd5=CMD[5],
+                       ok0=ok0, err0=err0, out0=out0.decode("utf-8"), cmd0=CMD[0],
+                       ok1=ok1, err1=err1, out1=out1.decode("utf-8"), cmd1=CMD[1],
+                       ok2=ok2, err2=err2, out2=out2.decode("utf-8"), cmd2=CMD[2],
+                       ok3=ok3, err3=err3, out3=out3.decode("utf-8"), cmd3=CMD[3],
+                       ok4=ok4, err4=err4, out4=out4.decode("utf-8"), cmd4=CMD[4],
+                       ok5=ok5, err5=err5, out5=out5.decode("utf-8"), cmd5=CMD[5],
                        )
 
     print(html)

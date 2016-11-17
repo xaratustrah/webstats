@@ -58,7 +58,6 @@ HTML_TMPL = """
     {% endif %}
     <br/>
 
-    <br/>
     Running:
     <br/>
     {% if not ok1 %}
@@ -68,7 +67,6 @@ HTML_TMPL = """
     {% endif %}
     <br/>
 
-    <br/>
     Time:
     <br/>
     {% if not ok2 %}
@@ -78,7 +76,6 @@ HTML_TMPL = """
     {% endif %}
     <br/>
 
-    <br/>
     Memory:
     <br/>
     {% if not ok3 %}
@@ -88,7 +85,6 @@ HTML_TMPL = """
     {% endif %}
     <br/>
 
-    <br/>
     GPU:
     <br/>
     {% if not ok4 %}
@@ -98,7 +94,6 @@ HTML_TMPL = """
     {% endif %}
     <br/>
 
-    <br/>
     CPU:
     <br/>
     {% if not ok5 %}

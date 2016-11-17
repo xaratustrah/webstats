@@ -39,69 +39,81 @@ HTML_TMPL = """
     <script>
         setTimeout(function(){window.location.reload(1);}, 4000);
     </script>
+
+    <style>
+    mono {
+        font-family: monospace;
+        background-color: gray;
+        color: darkred;
+    }
+    </style>
+
     <!--Here comes the document title-->
 
     <title>{{title}}</title>
 
-    <a href="https://github.com/xaratustrah/webstats"><img style="position: absolute; top: 0; right: 0; border: 0;"
+    <a href="https://github.com/xaratustrah/webstats" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;"
     src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67"
     alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
   </head>
 
   <body>
-    <br/>
     Showing server status of:
-    {% if not ok0 %}
-    <b><code>{{ out0 }}</code></b>
-    {% else %}
-    Failed to run <b><code>{{ cmd0 }}</code></b>.
-    {% endif %}
     <br/>
+    {% if not ok0 %}
+    <b><mono>{{ out0 }}</mono></b>
+    {% else %}
+    Failed to run <b><mono>{{ cmd0 }}</mono></b>.
+    {% endif %}
 
+    <br/>
     Running:
     <br/>
     {% if not ok1 %}
-    <b><code>{{ out1 }}</code></b>
+    <b><mono>{{ out1 }}</mono></b>
     {% else %}
-    Failed to run <b><code>{{ cmd1 }}</code></b>.
+    Failed to run <b><mono>{{ cmd1 }}</mono></b>.
     {% endif %}
-    <br/>
 
+    <br/>
     Time:
     <br/>
     {% if not ok2 %}
-    <b><code>{{ out2 }}</code></b>
+    <b><mono>{{ out2 }}</mono></b>
     {% else %}
-    Failed to run <b><code>{{ cmd2 }}</code></b>.
-    {% endif %}
     <br/>
+    Failed to run <b><mono>{{ cmd2 }}</mono></b>.
+    {% endif %}
 
+    <br/>
     Memory:
     <br/>
     {% if not ok3 %}
-    <b><code>{{ out3 }}</code></b>
+    <b><mono>{{ out3 }}</mono></b>
     {% else %}
-    Failed to run <b><code>{{ cmd3 }}</code></b>.
-    {% endif %}
     <br/>
+    Failed to run <b><mono>{{ cmd3 }}</mono></b>.
+    {% endif %}
 
+    <br/>
     GPU:
     <br/>
     {% if not ok4 %}
-    <b><code>{{ out4 }}</code></b>
+    <b><mono>{{ out4 }}</mono></b>
     {% else %}
-    Failed to run <b><code>{{ cmd4 }}</code></b>.
-    {% endif %}
     <br/>
+    Failed to run <b><mono>{{ cmd4 }}</mono></b>.
+    {% endif %}
 
+    <br/>
     CPU:
     <br/>
     {% if not ok5 %}
-    <b><code>{{ out5 }}</code></b>
+    <b><mono>{{ out5 }}</mono></b>
     {% else %}
-    Failed to run <b><code>{{ cmd5 }}</code></b>.
-    {% endif %}
     <br/>
+    Failed to run <b><mono>{{ cmd5 }}</mono></b>.
+    {% endif %}
 
   </body>
 </html>

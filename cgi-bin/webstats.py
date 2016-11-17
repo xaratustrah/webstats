@@ -36,6 +36,9 @@ HTML_TMPL = """
 
     <link href="http://thomasf.github.io/solarized-css/solarized-dark.min.css" rel="stylesheet"></link>
 
+    <script>
+        setTimeout(function(){window.location.reload(1);}, 4000);
+    </script>
     <!--Here comes the document title-->
 
     <title>{{title}}</title>
@@ -47,8 +50,7 @@ HTML_TMPL = """
 
   <body>
     <br/>
-    Showing server status from:
-    <br/>
+    Showing server status of:
     {% if not ok0 %}
     <b><code>{{ out0 }}</code></b>
     {% else %}

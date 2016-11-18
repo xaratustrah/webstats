@@ -183,7 +183,7 @@ def main():
     out5 = out5[out5.find('Average'):]  # ignore first line
     out5 = out5.replace('\n', '</td></tr><tr><td>')
     if out5.endswith('<tr><td>'):
-        out5 = out4[:-8]
+        out5 = out5[:-8]
     out5 = re.sub(r"\s+", '</td><td>', out5)
     tab_cpu = '<table class="resultsTable"><tr><td>' + out5 + '</table>'
 

@@ -78,14 +78,14 @@ HTML_TMPL = """
   </head>
 
   <body>
-    Showing server status of:
-    <br/>
+    Server: 
     {% if not ok0 %}
     <b><mono>{{ out0 }}</mono></b>
     {% else %}
     Failed to run <b><mono>{{ cmd0 }}</mono></b>.
     {% endif %}
     <br/>
+    Time:
     {% if not ok2 %}
     <b><mono>{{ out2 }}</mono></b>
     {% else %}
@@ -95,7 +95,6 @@ HTML_TMPL = """
 
     <br/>
     OS:
-    <br/>
     {% if not ok1 %}
     <b><mono>{{ out1 }}</mono></b>
     {% else %}

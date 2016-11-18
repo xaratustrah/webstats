@@ -48,15 +48,14 @@ HTML_TMPL = """
         }
 
     table.resultsTable {
+        text-align:center;
+        background-color: gray;
+        border-collapse: separate;
         border-width: 1px;
         border-spacing: 2px;
         border-style: outset;
         border-color: gray;
-        border-collapse: separate;
-        background-color: white;
-        text-align:center;
         border-style:solid;
-        border-width:1px;
         }
 
     table.resultsTable td {
@@ -168,11 +167,16 @@ def main():
     out3 = out3.decode('utf-8')
     out3 = out3[out3.find('\n') + 2:out3.rfind('\n')]  # ignore first line
     out3 = out3.replace('\n', '</td></tr><tr><td>')
+    if out3.endswith('<tr><td>'):
+        out3 = out3[:-8]
     out3 = re.sub(r"\s+", '</td><td>', out3)
-    tab_mem = '<table class="resultsTable"><tr><td>' + out3 + '</td></tr></table>'
+    tab_mem = '<table class="resultsTable"><tr><td>' + out3 + '</table>'
 
-    tab_gpu = '<table class="resultsTable"><tr><td>' + out4.decode(
-        'utf-8').replace(',', '</td><td>').replace('\n', '</td></tr><tr><td>') + '</td></tr></table>'
+    out4 = out4.decode('utf-8')
+    out4 = out4.replace('\n', '</td></tr><tr><td>')
+    if out4.endswith('<tr><td>'):
+        out4 = out4[:-8]
+    tab_gpu = '<table class="resultsTable"><tr><td>' + out4.replace(',', '</td><td>') + '</table>'
 
     out5 = out5.decode('utf-8')
     out5 = out5[out5.find('Average'):]  # ignore first line

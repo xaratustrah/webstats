@@ -85,24 +85,21 @@ HTML_TMPL = """
     {% else %}
     Failed to run <b><mono>{{ cmd0 }}</mono></b>.
     {% endif %}
-
-    <br/>
-    Running:
-    <br/>
-    {% if not ok1 %}
-    <b><mono>{{ out1 }}</mono></b>
-    {% else %}
-    Failed to run <b><mono>{{ cmd1 }}</mono></b>.
-    {% endif %}
-
-    <br/>
-    Time:
     <br/>
     {% if not ok2 %}
     <b><mono>{{ out2 }}</mono></b>
     {% else %}
     <br/>
     Failed to run <b><mono>{{ cmd2 }}</mono></b>.
+    {% endif %}
+
+    <br/>
+    OS:
+    <br/>
+    {% if not ok1 %}
+    <b><mono>{{ out1 }}</mono></b>
+    {% else %}
+    Failed to run <b><mono>{{ cmd1 }}</mono></b>.
     {% endif %}
 
     <br/>

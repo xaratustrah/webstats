@@ -37,7 +37,7 @@ HTML_TMPL = """
     <link href="http://thomasf.github.io/solarized-css/solarized-dark.min.css" rel="stylesheet"></link>
 
     <script>
-        setTimeout(function(){window.location.reload(1);}, 4000);
+        setTimeout(function(){window.location.reload(1);}, 5000);
     </script>
 
     <style>
@@ -89,7 +89,7 @@ HTML_TMPL = """
     Memory:
     <br/>
     {% if not ok3 %}
-    {{ out3 }}
+    <p>{{ out3 }}</p>
     {% else %}
     <br/>
     Failed to run <b><mono>{{ cmd3 }}</mono></b>.
@@ -99,7 +99,7 @@ HTML_TMPL = """
     GPU:
     <br/>
     {% if not ok4 %}
-    {{ out4 }}
+    <p>{{ out4 }}</p>
     {% else %}
     <br/>
     Failed to run <b><mono>{{ cmd4 }}</mono></b>.
@@ -153,7 +153,7 @@ def main():
     tab_gpu = '<table style="text-align:center;border-style:solid;border-width:1px;"><tr><td>' + out4.decode(
         'utf-8').replace(',', '</td><td>').replace('\n',
                                                    '</td></tr><tr><td>') + '</td></tr></table>'
-
+    print(tab_mem)
     html = tmpl.render(title='WebStats',
                        ok0=ok0, err0=err0, out0=out0.decode("utf-8").replace('\n', '<br/>'), cmd0=CMD[0],
                        ok1=ok1, err1=err1, out1=out1.decode("utf-8").replace('\n', '<br/>'), cmd1=CMD[1],

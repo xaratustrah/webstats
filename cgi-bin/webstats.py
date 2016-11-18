@@ -45,7 +45,28 @@ HTML_TMPL = """
         font-family: monospace;
         background-color: gray;
         color: darkred;
-    }
+        }
+
+    table.resultsTable {
+        border-width: 1px;
+        border-spacing: 2px;
+        border-style: outset;
+        border-color: gray;
+        border-collapse: separate;
+        background-color: white;
+        text-align:center;
+        border-style:solid;
+        border-width:1px;
+        }
+
+    table.resultsTable td {
+        border-width: 1px;
+        padding: 1px;
+        border-style: inset;
+        border-color: gray;
+        background-color: white;
+        -moz-border-radius: ;
+        }
     </style>
 
     <!--Here comes the document title-->
@@ -109,7 +130,7 @@ HTML_TMPL = """
     CPU:
     <br/>
     {% if not ok5 %}
-    <b><mono>{{ out5 }}</mono></b>
+    <p>{{ out5 }}</p>
     {% else %}
     <br/>
     Failed to run <b><mono>{{ cmd5 }}</mono></b>.
@@ -148,16 +169,16 @@ def main():
     out3 = out3[out3.find('\n') + 2:out3.rfind('\n')]  # ignore first line
     out3 = out3.replace('\n', '</td></tr><tr><td>')
     out3 = re.sub(r"\s+", '</td><td>', out3)
-    tab_mem = '<table style="text-align:center;border-style:solid;border-width:1px;"><tr><td>' + out3 + '</td></tr></table>'
+    tab_mem = '<table class="resultsTable"><tr><td>' + out3 + '</td></tr></table>'
 
-    tab_gpu = '<table style="text-align:center;border-style:solid;border-width:1px;"><tr><td>' + out4.decode(
+    tab_gpu = '<table class="resultsTable"><tr><td>' + out4.decode(
         'utf-8').replace(',', '</td><td>').replace('\n', '</td></tr><tr><td>') + '</td></tr></table>'
 
     out5 = out5.decode('utf-8')
     out5 = out5[out5.find('Average'):]  # ignore first line
     out5 = out5.replace('\n', '</td></tr><tr><td>')
     out5 = re.sub(r"\s+", '</td><td>', out5)
-    tab_cpu = '<table style="text-align:center;border-style:solid;border-width:1px;"><tr><td>' + out5 + '</td></tr></table>'
+    tab_cpu = '<table class="resultsTable"><tr><td>' + out5 + '</td></tr></table>'
 
     html = tmpl.render(title='WebStats',
                        ok0=ok0, err0=err0, out0=out0.decode("utf-8").replace('\n', '<br/>'), cmd0=CMD[0],

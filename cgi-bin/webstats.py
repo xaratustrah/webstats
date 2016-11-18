@@ -145,22 +145,27 @@ def main():
     ok5, out5, err5 = run_cmd(CMD[5])
 
     out3 = out3.decode('utf-8')
-    out3 = out3[out3.find('\n') + 2:out3.rfind('\n')] # ignore first line
+    out3 = out3[out3.find('\n') + 2:out3.rfind('\n')]  # ignore first line
     out3 = out3.replace('\n', '</td></tr><tr><td>')
     out3 = re.sub(r"\s+", '</td><td>', out3)
-    tab_mem = '<table style="text-align:center;border-style:solid;border-width:1px;><tr><td>' + out3 + '</td></tr></table>'
+    tab_mem = '<table style="text-align:center;border-style:solid;border-width:1px;"><tr><td>' + out3 + '</td></tr></table>'
 
     tab_gpu = '<table style="text-align:center;border-style:solid;border-width:1px;"><tr><td>' + out4.decode(
-        'utf-8').replace(',', '</td><td>').replace('\n',
-                                                   '</td></tr><tr><td>') + '</td></tr></table>'
-    print(tab_mem)
+        'utf-8').replace(',', '</td><td>').replace('\n', '</td></tr><tr><td>') + '</td></tr></table>'
+
+    out5 = out5.decode('utf-8')
+    out5 = out5[out5.find('Average'):]  # ignore first line
+    out5 = out5.replace('\n', '</td></tr><tr><td>')
+    out5 = re.sub(r"\s+", '</td><td>', out5)
+    tab_cpu = '<table style="text-align:center;border-style:solid;border-width:1px;"><tr><td>' + out5 + '</td></tr></table>'
+
     html = tmpl.render(title='WebStats',
                        ok0=ok0, err0=err0, out0=out0.decode("utf-8").replace('\n', '<br/>'), cmd0=CMD[0],
                        ok1=ok1, err1=err1, out1=out1.decode("utf-8").replace('\n', '<br/>'), cmd1=CMD[1],
                        ok2=ok2, err2=err2, out2=out2.decode("utf-8").replace('\n', '<br/>'), cmd2=CMD[2],
                        ok3=ok3, err3=err3, out3=tab_mem, cmd3=CMD[3],
                        ok4=ok4, err4=err4, out4=tab_gpu, cmd4=CMD[4],
-                       ok5=ok5, err5=err5, out5=out5.decode("utf-8").replace('\n', '<br/>'), cmd5=CMD[5],
+                       ok5=ok5, err5=err5, out5=tab_cpu, cmd5=CMD[5],
                        )
 
     print(html)

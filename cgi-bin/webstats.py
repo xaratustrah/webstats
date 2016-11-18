@@ -78,7 +78,7 @@ HTML_TMPL = """
   </head>
 
   <body>
-    Server: 
+    Server:
     {% if not ok0 %}
     <b><mono>{{ out0 }}</mono></b>
     {% else %}

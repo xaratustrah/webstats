@@ -144,7 +144,7 @@ def main():
     ok4, out4, err4 = run_cmd(CMD[4])
     ok5, out5, err5 = run_cmd(CMD[5])
 
-    tab = '<table style="width:100%"><tr><td>' + out4.decode('utf-8').replace(',', '</td><td>').replace('\n',
+    tab = '<table><tr><td>' + out4.decode('utf-8').replace(',', '</td><td>').replace('\n',
                                                                                                         '</td></tr><tr><td>') + '</td></tr></table>'
 
     html = tmpl.render(title='WebStats',

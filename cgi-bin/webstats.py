@@ -9,7 +9,7 @@ Xaratustrah
 
 """
 
-import subprocess
+import subprocess, re
 from jinja2 import Template
 
 CMD = [
@@ -144,9 +144,11 @@ def main():
     ok4, out4, err4 = run_cmd(CMD[4])
     ok5, out5, err5 = run_cmd(CMD[5])
 
-    tab_mem = '<table style="text-align:center;border-style:solid;border-width:1px;"><tr><td>' + out3.decode(
-        'utf-8').replace(' ', '</td><td>').replace('\n',
-                                                   '</td></tr><tr><td>') + '</td></tr></table>'
+    out3 = out3.decode('utf-8')
+    out3 = out3[out3.find('\n') + 2:out3.rfind('\n')]
+    out3 = out3.replace('\n', '</td></tr><tr><td>')
+    out3 = re.sub(r"\s+", '</td><td>', out3)
+    tab_mem = '<table style="text-align:center;border-style:solid;border-width:1px;><tr><td>' + out3 + '</td></tr></table>'
 
     tab_gpu = '<table style="text-align:center;border-style:solid;border-width:1px;"><tr><td>' + out4.decode(
         'utf-8').replace(',', '</td><td>').replace('\n',

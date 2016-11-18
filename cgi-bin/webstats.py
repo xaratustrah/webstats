@@ -165,12 +165,13 @@ def main():
     ok5, out5, err5 = run_cmd(CMD[5])
 
     out3 = out3.decode('utf-8')
-    out3 = out3[out3.find('\n') + 2:out3.rfind('\n')]  # ignore first line
+    out3 = out3.replace(' PM', 'PM') #remoce pesky PM
+    out3 = out3[out3.find('\n\n') + 2:out3.rfind('\n')]  # ignore first line
     out3 = out3.replace('\n', '</td></tr><tr><td>')
     if out3.endswith('<tr><td>'):
         out3 = out3[:-8]
     out3 = re.sub(r"\s+", '</td><td>', out3)
-    tab_mem = '<table class="resultsTable"><tr><td>' + out3 + '</table>'
+    tab_mem = '<table class="resultsTable"><tr><td>' + out3 + '</td></tr></table>'
 
     out4 = out4.decode('utf-8')
     out4 = out4.replace('\n', '</td></tr><tr><td>')
@@ -181,8 +182,10 @@ def main():
     out5 = out5.decode('utf-8')
     out5 = out5[out5.find('Average'):]  # ignore first line
     out5 = out5.replace('\n', '</td></tr><tr><td>')
+    if out5.endswith('<tr><td>'):
+        out5 = out4[:-8]
     out5 = re.sub(r"\s+", '</td><td>', out5)
-    tab_cpu = '<table class="resultsTable"><tr><td>' + out5 + '</td></tr></table>'
+    tab_cpu = '<table class="resultsTable"><tr><td>' + out5 + '</table>'
 
     html = tmpl.render(title='WebStats',
                        ok0=ok0, err0=err0, out0=out0.decode("utf-8").replace('\n', '<br/>'), cmd0=CMD[0],

@@ -17,7 +17,7 @@ CMD = [
     'uname -mrsv',
     'date',
     'sar -r 1 1',
-    'nvidia-smi',
+    'nvidia-smi --query-gpu=name,gpu_serial,gpu_uuid,memory.total,memory.used,memory.free,temperature.gpu,utilization.gpu,utilization.memory --format=csv',
     'sar -P ALL 1 1',
 ]
 
@@ -144,12 +144,15 @@ def main():
     ok4, out4, err4 = run_cmd(CMD[4])
     ok5, out5, err5 = run_cmd(CMD[5])
 
+    tab = '<table style="width:100%"><tr><td>' + out4.decode('utf-8').replace(',', '</td><td>').replace('\n',
+                                                                                                        '</td></tr><tr><td>') + '</td></tr></table>'
+
     html = tmpl.render(title='WebStats',
                        ok0=ok0, err0=err0, out0=out0.decode("utf-8").replace('\n', '<br/>'), cmd0=CMD[0],
                        ok1=ok1, err1=err1, out1=out1.decode("utf-8").replace('\n', '<br/>'), cmd1=CMD[1],
                        ok2=ok2, err2=err2, out2=out2.decode("utf-8").replace('\n', '<br/>'), cmd2=CMD[2],
                        ok3=ok3, err3=err3, out3=out3.decode("utf-8").replace('\n', '<br/>'), cmd3=CMD[3],
-                       ok4=ok4, err4=err4, out4=out4.decode("utf-8").replace('\n', '<br/>'), cmd4=CMD[4],
+                       ok4=ok4, err4=err4, out4=tab, cmd4=CMD[4],
                        ok5=ok5, err5=err5, out5=out5.decode("utf-8").replace('\n', '<br/>'), cmd5=CMD[5],
                        )
 

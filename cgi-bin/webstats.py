@@ -37,12 +37,11 @@ HTML_TMPL = """
     <link href="http://thomasf.github.io/solarized-css/solarized-dark.min.css" rel="stylesheet"></link>
 
     <script>
-        setTimeout(function(){window.location.reload(1);}, 5000);
+        setTimeout(function(){window.location.reload(1);}, 4000);
     </script>
 
     <style>
     mono {
-        font-family: monospace;
         background-color: gray;
         color: darkred;
         }
@@ -59,11 +58,12 @@ HTML_TMPL = """
         }
 
     table.resultsTable td {
+        color: darkred;
         border-width: 1px;
         padding: 1px;
         border-style: inset;
-        border-color: gray;
-        background-color: white;
+        border-color: black;
+        background-color: gray;
         -moz-border-radius: ;
         }
     </style>
@@ -80,14 +80,14 @@ HTML_TMPL = """
   <body>
     Server:
     {% if not ok0 %}
-    <b><mono>{{ out0 }}</mono></b>
+    <mono>{{ out0 }}</mono>
     {% else %}
     Failed to run <b><mono>{{ cmd0 }}</mono></b>.
     {% endif %}
     <br/>
     Time:
     {% if not ok2 %}
-    <b><mono>{{ out2 }}</mono></b>
+    <mono>{{ out2 }}</mono>
     {% else %}
     <br/>
     Failed to run <b><mono>{{ cmd2 }}</mono></b>.
@@ -96,7 +96,7 @@ HTML_TMPL = """
     <br/>
     OS:
     {% if not ok1 %}
-    <b><mono>{{ out1 }}</mono></b>
+    <mono>{{ out1 }}</mono>
     {% else %}
     Failed to run <b><mono>{{ cmd1 }}</mono></b>.
     {% endif %}

@@ -89,7 +89,7 @@ HTML_TMPL = """
     Memory:
     <br/>
     {% if not ok3 %}
-    <b><mono>{{ out3 }}</mono></b>
+    {{ out3 }}
     {% else %}
     <br/>
     Failed to run <b><mono>{{ cmd3 }}</mono></b>.
@@ -99,7 +99,7 @@ HTML_TMPL = """
     GPU:
     <br/>
     {% if not ok4 %}
-    <b><mono>{{ out4 }}</mono></b>
+    {{ out4 }}
     {% else %}
     <br/>
     Failed to run <b><mono>{{ cmd4 }}</mono></b>.
@@ -145,7 +145,7 @@ def main():
     ok5, out5, err5 = run_cmd(CMD[5])
 
     out3 = out3.decode('utf-8')
-    out3 = out3[out3.find('\n') + 2:out3.rfind('\n')]
+    out3 = out3[out3.find('\n') + 2:out3.rfind('\n')] # ignore first line
     out3 = out3.replace('\n', '</td></tr><tr><td>')
     out3 = re.sub(r"\s+", '</td><td>', out3)
     tab_mem = '<table style="text-align:center;border-style:solid;border-width:1px;><tr><td>' + out3 + '</td></tr></table>'

@@ -1,0 +1,16 @@
+[Unit]
+Description=Unicorn Daemon for webstats
+After=network.target
+
+[Service]
+User=cstadmin
+Group=www-data
+WorkingDirectory=/home/cstadmin/Documents/git/webstats
+ExecStart=/usr/local/bin/gunicorn --workers 1 --bind unix:/home/cstadmin/Documents/git/webstats/webstats_socket.sock webstats_flask:app
+
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+
+
+[Install]
+WantedBy=multi-user.target

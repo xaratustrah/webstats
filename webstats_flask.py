@@ -21,6 +21,7 @@ CMD = [
     'sar -r 1 1',
     'nvidia-smi --query-gpu=gpu_uuid,memory.total,memory.used,memory.free,temperature.gpu,utilization.gpu,utilization.memory --format=csv',
     'sar -P ALL 1 1',
+    '/usr/local/cuda/bin/nvcc --version',
 ]
 
 HTML_TMPL = """
@@ -114,6 +115,17 @@ HTML_TMPL = """
     {% endif %}
 
     <br/>
+    NVIDIA:
+    <br/>
+    {% if not ok6 %}
+    <mono>{{ out6 }}</mono>
+    {% else %}
+    <br/>
+    Failed to run <b><mono>{{ cmd6 }}</mono></b>.
+    {% endif %}
+
+    <br/>
+    <br/>
     GPU:
     <br/>
     {% if not ok4 %}
@@ -166,6 +178,7 @@ def index():
     ok3, out3, err3 = run_cmd(CMD[3])
     ok4, out4, err4 = run_cmd(CMD[4])
     ok5, out5, err5 = run_cmd(CMD[5])
+    ok6, out6, err6 = run_cmd(CMD[6])
 
     out3 = out3.decode('utf-8')
     out3 = out3.replace(' PM', 'PM')  # remoce pesky PM
@@ -191,6 +204,9 @@ def index():
     out5 = re.sub(r"\s+", '</td><td>', out5)
     tab_cpu = '<table class="resultsTable"><tr><td>' + out5 + '</table>'
 
+    out6 = out6.decode('utf-8')
+    nvidia_version = 'Driver version: ' + out6.split('release ')[1] + '\n'
+
     html = tmpl.render(title='WebStats',
                        ok0=ok0, err0=err0, out0=out0.decode("utf-8").replace('\n', '<br/>'), cmd0=CMD[0],
                        ok1=ok1, err1=err1, out1=out1.decode("utf-8").replace('\n', '<br/>'), cmd1=CMD[1],
@@ -198,6 +214,7 @@ def index():
                        ok3=ok3, err3=err3, out3=tab_mem, cmd3=CMD[3],
                        ok4=ok4, err4=err4, out4=tab_gpu, cmd4=CMD[4],
                        ok5=ok5, err5=err5, out5=tab_cpu, cmd5=CMD[5],
+                       ok6=ok6, err6=err6, out6=nvidia_version, cmd6=CMD[6],
                        )
 
     return html
